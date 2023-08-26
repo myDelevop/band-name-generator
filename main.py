@@ -47,3 +47,5 @@ print(type(c))
 
 print(70 + float("100.5"))  # It prints a float num
 print(str(70) + str(100))  # It prints the string 70100
+
+print(3 * 3 + 3 / 3 - 3)  # maths precedences

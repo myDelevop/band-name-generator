@@ -1,18 +1,16 @@
-# String
-print("Hello"[0])  # returns H, we start from 0
-print("Hello"[4])  # returns o, we start from 0
-print("123" + "345")  # string concatenation
+# 🚨 Don't change the code below 👇
+two_digit_number = input("Type a two digit number: ")
+# 🚨 Don't change the code above 👆
 
-# Integer
-print(123 + 345)  # sum is OK
-print(123_456_122)  # in Python, we can use _ like the comma thousands separator
+####################################
+# Write your code below this line 👇
 
-# Float, floating point (it is how the PC really deals with numbers in the lowest level)
-print("Pi is: + " + str(3.14159))
+two_digit_int = int(two_digit_number)
+float_division = two_digit_int / 10
 
-# Boolean (True or False)
-if True:
-    print("Of course I'll print it! It's true")
-else:
-    print("Never here")
+division_str = str(float_division)
 
+first_int = int(division_str[0])
+second_int = int(division_str[2])
+
+print(first_int + second_int)

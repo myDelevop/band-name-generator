@@ -49,3 +49,24 @@ print(70 + float("100.5"))  # It prints a float num
 print(str(70) + str(100))  # It prints the string 70100
 
 print(3 * 3 + 3 / 3 - 3)  # maths precedences
+
+print(round(8 / 3))
+print(round(8 / 3, 2))
+print(8 // 3)  # floating division
+
+result = 4 / 2
+result /= 2
+print(result)
+
+score = 0
+# User scores a point
+score = score + 1
+score += 1
+score -= 1
+# ....
+
+score = 5
+height = 1.84
+isWinning = True
+print("Your score is " + str(score) + ".......... BORING! Let's use f-String")  # BORING
+print(f"Your score is {score}, your height is {height}, you are winning is {isWinning}")  # OK

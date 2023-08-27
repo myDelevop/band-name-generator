@@ -1,3 +1,5 @@
+import random
+
 # Write your code below this line 👇
 print("Hello World!")
 print("Hello World!\nHello World!")
@@ -18,7 +20,6 @@ num_char = len(input("What is your name?"))
 print(type(num_char))
 print("Your name has " + str(num_char) + " characters.")
 
-
 # String
 print("Hello"[0])  # returns H, we start from 0
 print("Hello"[4])  # returns o, we start from 0pr
@@ -36,7 +37,6 @@ if True:
     print("Of course I'll print it! It's true")
 else:
     print("Never here")
-
 
 a = 123
 b = float(123)
@@ -70,7 +70,6 @@ height = 1.84
 isWinning = True
 print("Your score is " + str(score) + ".......... BORING! Let's use f-String")  # BORING
 print(f"Your score is {score}, your height is {height}, you are winning is {isWinning}")  # OK
-
 
 water_level = 50
 if water_level > 80:
@@ -140,3 +139,18 @@ if height >= 120:
 
 else:
     print("Sorry, you have to grow taller before you can ride.")
+
+random_int = random.randint(1, 10)
+print(random_int)
+
+random_float = random.random()  # it goes between 0 and 1
+print(random_float)
+
+# how can we create a decimal between 0 and 5?
+random_0_5 = random.randint(0, 5) + random.random()
+print(random_0_5)
+
+# we can do the same by multiplying random by 5
+
+love_score = random.randint(1, 100)
+print(f"Your love score is {love_score}")

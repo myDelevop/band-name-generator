@@ -70,3 +70,18 @@ height = 1.84
 isWinning = True
 print("Your score is " + str(score) + ".......... BORING! Let's use f-String")  # BORING
 print(f"Your score is {score}, your height is {height}, you are winning is {isWinning}")  # OK
+
+
+water_level = 50
+if water_level > 80:
+    print("Drain water")
+else:
+    print("Continue")
+
+print("Welcome to the roller-coaster!")
+height = int(input("What is your height in cm?"))
+
+if height >= 120:
+    print("You can ride the roller-coaster!")
+else:
+    print("Sorry, you have to grow taller before you can ride.")

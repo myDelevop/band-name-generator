@@ -154,3 +154,10 @@ print(random_0_5)
 
 love_score = random.randint(1, 100)
 print(f"Your love score is {love_score}")
+
+# lists in which order is important
+states = ["Delaware", "Pennsylvania", "...", "Hawaii"]
+
+print(states[0])  # is the first US State
+print(states[len(states)-1])  # is the last US State
+

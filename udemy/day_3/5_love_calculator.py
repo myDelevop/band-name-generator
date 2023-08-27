@@ -24,7 +24,7 @@ love_count += (lowercase_name1.count("e") + lowercase_name2.count("e"))
 
 score = true_count * 10 + love_count
 
-if 10 >= score >= 90:
+if score <= 10 or score >= 90:
     print(f"Your score is {score}, you go together like coke and mentos.")
 elif 40 <= score <= 50:
     print(f"Your score is {score}, you are alright together.")

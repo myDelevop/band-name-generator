@@ -161,3 +161,8 @@ states = ["Delaware", "Pennsylvania", "...", "Hawaii"]
 print(states[0])  # is the first US State
 print(states[len(states)-1])  # is the last US State
 
+states.append("RoccoLand")  # RoccoLand join the USA
+print(states[len(states)-1])  # is the last US State
+
+states.extend(["state_2031", "state_2032", "state_future"])
+print(states[len(states)-1])

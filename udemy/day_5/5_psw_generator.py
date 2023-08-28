@@ -30,6 +30,11 @@ for i in range(0, nr_numbers):
     random_number = numbers[random_index]
     secure_psw += random_number
 
-print(secure_psw)
+# print(secure_psw)
+
 # Hard Level - Order of characters randomised:
 # e.g. 4 letter, 2 symbol, 2 number = g^2jk8&P
+
+
+# A way to shuffle a string
+print(''.join(random.sample(secure_psw, len(secure_psw))))

@@ -37,7 +37,6 @@ print("PC choice: " + images[PC_choice])
 print("\n\n")
 print("User choice: " + images[user_choice])
 
-
 if PC_choice == 0:
     # PC with Rock
     if user_choice == 0:

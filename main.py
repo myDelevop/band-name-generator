@@ -176,3 +176,9 @@ vegetables = ["Spinach", "Kale", "Tomatoes", "Celery", "Potatoes"]
 dirty_dozen_1 = [fruits, vegetables]
 
 print(dirty_dozen_1[0][3])
+
+fruits = ["Apple", "Peach", "Pear"]
+
+for fruit in fruits:
+    print(fruit)
+    print(fruit + " Pie")

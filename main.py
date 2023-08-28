@@ -166,3 +166,13 @@ print(states[len(states)-1])  # is the last US State
 
 states.extend(["state_2031", "state_2032", "state_future"])
 print(states[len(states)-1])
+
+
+dirty_dozen = ["Strawberries", "Spinach", "Kale", "Nectarines", "Apples", "Grapes",
+               "Peaches", "Cherries", "Pears", "Tomatoes", "Celery", "Potatoes"]
+
+fruits = ["Strawberries", "Nectarines", "Apples", "Grapes", "Peaches", "Cherries", "Pears"]
+vegetables = ["Spinach", "Kale", "Tomatoes", "Celery", "Potatoes"]
+dirty_dozen_1 = [fruits, vegetables]
+
+print(dirty_dozen_1[0][3])

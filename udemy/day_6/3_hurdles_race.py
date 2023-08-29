@@ -11,3 +11,8 @@ while not win:
     if at_goal():  # if at_goal() true we win the Race
         win = True
 
+"""
+Better:
+while not at_goal():
+    jump_once()
+"""

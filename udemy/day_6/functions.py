@@ -39,6 +39,20 @@ def jump_once():
     jump_with_no_move()
 
 
+def jump_high_wall():
+    turn_left()
+    steps = 0
+    while not right_is_clear():
+        move()
+        steps += 1
+    turn_right()
+    move()
+    turn_right()
+    for i in range(0, steps):
+        move()
+    turn_left()
+
+
 def at_goal():
     win_int = random.randint(0, 1)
     if win_int == 1:
@@ -49,6 +63,10 @@ def at_goal():
 
 
 def wall_in_front():
+    return at_goal()
+
+
+def right_is_clear():
     return at_goal()
 
 

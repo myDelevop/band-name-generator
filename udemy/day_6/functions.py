@@ -69,6 +69,9 @@ def wall_in_front():
 def right_is_clear():
     return at_goal()
 
+def front_is_clear():
+    return at_goal()
 
 # Call the function:
 my_function()
+

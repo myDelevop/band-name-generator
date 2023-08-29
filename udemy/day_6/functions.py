@@ -1,3 +1,6 @@
+import random
+
+
 def my_function():
     print("Hello")
     print("Bye")
@@ -30,6 +33,15 @@ def jump_once():
     turn_right()
     move()
     turn_left()
+
+
+def at_goal():
+    win_int = random.randint(0, 1)
+    if win_int == 1:
+        win = True
+    else:
+        win = False
+    return win
 
 
 # Call the function:

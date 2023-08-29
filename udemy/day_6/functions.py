@@ -24,15 +24,19 @@ def turn_right():
     turn_left()
 
 
+def jump_with_no_move():
+    turn_left()
+    move()
+    turn_right()
+    move()
+    turn_right()
+    move()
+    turn_left()
+
+
 def jump_once():
     move()
-    turn_left()
-    move()
-    turn_right()
-    move()
-    turn_right()
-    move()
-    turn_left()
+    jump_with_no_move()
 
 
 def at_goal():
@@ -42,6 +46,10 @@ def at_goal():
     else:
         win = False
     return win
+
+
+def wall_in_front():
+    return at_goal()
 
 
 # Call the function:

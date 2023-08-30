@@ -5,11 +5,7 @@ direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
 text = input("Type your message:\n").lower()
 shift = int(input("Type the shift number:\n"))
 
-
-# TODO-1: Create a function called 'encrypt' that takes the 'text' and 'shift' as inputs.
 def encrypt(plain_text: str, shift_amount: int):
-    # TODO-2: Inside the 'encrypt' function, shift each letter of the 'text' forwards in the alphabet by the shift
-    #  amount and print the encrypted text.
     encrypted_text = ""
     for letter in plain_text:
         pos = alphabet.index(letter)
@@ -28,6 +24,4 @@ def encrypt(plain_text: str, shift_amount: int):
     # 🐛Bug alert: What happens if you try to encode the word 'civilization'?🐛
 
 
-# TODO-3: Call the encrypt function and pass in the user inputs. You should be able to test the code and encrypt a
-#  message.
 encrypt(plain_text=text, shift_amount=shift)  # No Bug with civilization & CO 😊

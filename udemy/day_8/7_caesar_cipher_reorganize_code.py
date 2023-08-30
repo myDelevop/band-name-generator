@@ -14,7 +14,7 @@ def caesar(dir_type: str, start_text: str, shift_amount: int):
         if dir_type == "encode":
             new_pos = (pos + shift_amount) % len(alphabet)
         elif dir_type == "decode":
-            new_pos = pos - shift_amount
+            new_pos = (pos - shift_amount) % len(alphabet)
         new_text += alphabet[new_pos]
 
     print(f"The {dir_type}d text is {new_text}")

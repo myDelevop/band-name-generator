@@ -24,20 +24,26 @@ dictionary = {
     "/": divide,
 }
 
-num1 = int(input("What's the first number?: "))
-num2 = int(input("What's the second number?: "))
+def calculator():
+    num1 = int(input("What's the first number?: "))
 
-for key in dictionary:
-    print(key)
+    for key in dictionary:
+        print(key)
 
-operation = input("Pick an operation from the line above: ")
-if dictionary.__contains__(operation):
-    first_answer = dictionary[operation](num1, num2)
-    print(f"{num1} {operation} {num2} = {first_answer}")
+    should_continue = True
+    while should_continue == True:
+        operation = input("Pick an operation: ")
+        num2 = int(input("What's the next number?: "))
+        if dictionary.__contains__(operation):
+            answer = dictionary[operation](num1, num2)
+            print(f"{num1} {operation} {num2} = {answer}")
+        
+        if input(f"Type 'y' to continue calculating with {answer}, or type 'n' to start a new calculation: ").lower() == "y":
+            num1 = answer
+        else:
+            should_continue = False
+            calculator()
 
 
-operation = input("Pick another operation")
-num3 = int(input("What's the next number?: "))
-if dictionary.__contains__(operation):
-    seconnd_answer = dictionary[operation](first_answer, num3)
-    print(f"{first_answer} {operation} {num3} = {seconnd_answer}")
+calculator()
+

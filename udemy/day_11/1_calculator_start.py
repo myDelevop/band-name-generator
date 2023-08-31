@@ -15,7 +15,7 @@ def divide(n1, n2):
         return
     return n1 / n2
 
-print(logo)
+
 
 dictionary = {
     "+": add,
@@ -25,7 +25,9 @@ dictionary = {
 }
 
 def calculator():
-    num1 = int(input("What's the first number?: "))
+    print(logo)
+
+    num1 = float(input("What's the first number?: "))
 
     for key in dictionary:
         print(key)
@@ -33,7 +35,7 @@ def calculator():
     should_continue = True
     while should_continue == True:
         operation = input("Pick an operation: ")
-        num2 = int(input("What's the next number?: "))
+        num2 = float(input("What's the next number?: "))
         if dictionary.__contains__(operation):
             answer = dictionary[operation](num1, num2)
             print(f"{num1} {operation} {num2} = {answer}")
@@ -44,6 +46,4 @@ def calculator():
             should_continue = False
             calculator()
 
-
 calculator()
-

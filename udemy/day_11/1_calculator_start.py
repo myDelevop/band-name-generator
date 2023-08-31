@@ -32,5 +32,12 @@ for key in dictionary:
 
 operation = input("Pick an operation from the line above: ")
 if dictionary.__contains__(operation):
-    answer = dictionary[operation](num1, num2)
-    print(f"{num1} {operation} {num2} = {answer}")
+    first_answer = dictionary[operation](num1, num2)
+    print(f"{num1} {operation} {num2} = {first_answer}")
+
+
+operation = input("Pick another operation")
+num3 = int(input("What's the next number?: "))
+if dictionary.__contains__(operation):
+    seconnd_answer = dictionary[operation](first_answer, num3)
+    print(f"{first_answer} {operation} {num3} = {seconnd_answer}")

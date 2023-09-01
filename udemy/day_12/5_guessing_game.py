@@ -3,7 +3,6 @@ import art
 
 NUMBER_TO_GUESS = random.randint(1, 100)
 
-
 guesses = {
     "easy": 10,
     "hard": 5
@@ -33,5 +32,4 @@ while attempts > 0 and win is False:
 
     attempts -= 1
 
-# print(f"You got it! The answer was {NUMBER_TO_GUESS}.")
-# print("You've run out of guesses, you lose."
+print("You've run out of guesses, you lose.")

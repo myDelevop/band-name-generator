@@ -32,4 +32,5 @@ while attempts > 0 and win is False:
 
     attempts -= 1
 
-print("You've run out of guesses, you lose.")
+if not win:
+    print("You've run out of guesses, you lose.")

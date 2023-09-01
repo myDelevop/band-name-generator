@@ -14,3 +14,26 @@ logo = """
 | |___|___|___| |___| |  '----------------'  '----------------'  '----------------'  '----------------' 
 |_____________________|
 """
+
+
+blackjack_logo = """
+.------.            _     _            _    _            _    
+|A_  _ |.          | |   | |          | |  (_)          | |   
+|( \/ ).-----.     | |__ | | __ _  ___| | ___  __ _  ___| | __
+| \  /|K /\  |     | '_ \| |/ _` |/ __| |/ / |/ _` |/ __| |/ /
+|  \/ | /  \ |     | |_) | | (_| | (__|   <| | (_| | (__|   < 
+`-----| \  / |     |_.__/|_|\__,_|\___|_|\_\ |\__,_|\___|_|\_\\
+      |  \/ K|                            _/ |                
+      `------'                           |__/           
+"""
+
+computer_win_string = "You went over. Sorry about that you lose! 😞"
+user_win_string = "Opponent went over, You win! 😄"
+draw_string = "Congratulations both players, this is a draw! 😄"
+
+user_cards = ""
+user_tot = 0
+computer_cards = []
+computer_tot = 0
+user_hand_string = f"\nYour final hand: {user_cards}, final score: {user_tot}"
+computer_hand_string = f"\nComputer's final hand: {computer_cards}, final score: {computer_tot}"

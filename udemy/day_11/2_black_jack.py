@@ -49,66 +49,58 @@ def print_final_output(user_cards, user_tot, computer_cards, computer_tot):
     print(f"\nComputer's final hand: {computer_cards}, final score: {computer_tot}")
 
 
-cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-play = True
+def play_game():
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
-while play is True:
+    clear()
+    print(art.blackjack_logo)
 
     user_cards = []
     computer_cards = []
 
-    choice = input("Do you want to play a game of BlackJack? Type 'y' or 'n':").lower()
-    clear()
+    for _ in range(2):
+        user_cards.append(deal_card(cards))
+        computer_cards.append(deal_card(cards))
 
-    if choice == 'y':
-        print(art.blackjack_logo)
+    user_tot = calculate_score(user_cards)
+    computer_tot = calculate_score(computer_cards)
 
-        for _ in range(2):
-            user_cards.append(deal_card(cards))
-            computer_cards.append(deal_card(cards))
+    print(f"Your cards: {user_cards}, current score: {user_tot}")
+    print(f"Computer's first card {computer_cards[0]}")
 
-        user_tot = calculate_score(user_cards)
-        computer_tot = calculate_score(computer_cards)
-
-        print(f"Your cards: {user_cards}, current score: {user_tot}")
-        print(f"Computer's first card {computer_cards[0]}")
-
-        if user_tot == 0:
-            print_final_output(user_cards, user_tot, computer_cards, computer_tot)
-            print(art.user_win_string)
-            break
-        elif computer_tot == 0 or user_tot >= 21:
-            print_final_output(user_cards, user_tot, computer_cards, computer_tot)
-            print(art.computer_win_string)
-            break
-        else:
-            again = True
-            while again is True:
-                user_in = input("Type 'y' to get another card, type 'n' to pass: ").lower()
-                if user_in == 'y':
-                    user_cards.append(deal_card(user_cards))
-                    user_tot = calculate_score(user_cards)
-                    print(f"Your cards: {user_cards}, current score: {user_tot}")
-
-                    if user_tot == 0:
-                        print(art.user_win_string)
-                    elif computer_tot == 0 or user_tot >= 21:
-                        print(art.computer_win_string)
-                elif user_in == 'n':
-                    again = False
-
-        while calculate_score(computer_cards) <= 17:
-            computer_cards.append(deal_card(cards))
-
+    if user_tot == 0:
         print_final_output(user_cards, user_tot, computer_cards, computer_tot)
-        if compare(user_tot, computer_tot) == 0:
-            print(art.computer_win_string)
-        elif compare(user_tot, computer_tot) == 1:
-            print(art.user_win_string)
-        elif compare(user_tot, computer_tot) == 2:
-            print(art.draw_string)
-
-    elif choice == 'n':
-        play = False
+        print(art.user_win_string)
+    elif computer_tot == 0 or user_tot >= 21:
+        print_final_output(user_cards, user_tot, computer_cards, computer_tot)
+        print(art.computer_win_string)
     else:
-        print("Invalid Input!")
+        again = True
+        while again is True:
+            user_in = input("Type 'y' to get another card, type 'n' to pass: ").lower()
+            if user_in == 'y':
+                user_cards.append(deal_card(user_cards))
+                user_tot = calculate_score(user_cards)
+                print(f"Your cards: {user_cards}, current score: {user_tot}")
+
+                if user_tot == 0:
+                    print(art.user_win_string)
+                elif computer_tot == 0 or user_tot >= 21:
+                    print(art.computer_win_string)
+            elif user_in == 'n':
+                again = False
+
+    while calculate_score(computer_cards) <= 17:
+        computer_cards.append(deal_card(cards))
+
+    print_final_output(user_cards, user_tot, computer_cards, computer_tot)
+    if compare(user_tot, computer_tot) == 0:
+        print(art.computer_win_string)
+    elif compare(user_tot, computer_tot) == 1:
+        print(art.user_win_string)
+    elif compare(user_tot, computer_tot) == 2:
+        print(art.draw_string)
+
+
+while input("Do you want to play a game of Blackjack?? Type 'y' or 'n': ") == "y":
+    play_game()

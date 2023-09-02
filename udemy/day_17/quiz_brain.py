@@ -1,3 +1,4 @@
+import random
 class QuizBrain:
     def __init__(self, q_list):
         self.question_number = 0
@@ -10,8 +11,13 @@ class QuizBrain:
     def next_question(self):
         question = self.question_list[self.question_number]
         self.question_number += 1
-        user_answer = input(f"Q.{self.question_number}: {question.question} (True or False): ").lower()
-        self.check_answer(user_answer, question.answer)
+        print(f"Q.{self.question_number}: {question.question}")
+        options = question.wrong_answers
+        options.append(question.correct_answer)
+        random.shuffle(options)
+        print("The option are: " + str(options))
+        user_answer = input(f"What is your choice\n")
+        self.check_answer(user_answer, question.correct_answer)
 
     def check_answer(self, user_ans, correct_ans):
         if user_ans.lower() == correct_ans.lower():

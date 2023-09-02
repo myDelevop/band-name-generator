@@ -1,7 +1,8 @@
 class Question:
-    def __init__(self, question: str, answer: str):
+    def __init__(self, question: str, ok_answer: str, ko_answers):
         self.question = question
-        self.answer = answer
+        self.correct_answer = ok_answer
+        self.wrong_answers = ko_answers
 
 
 # new_q = Question("2+5=7", "True")

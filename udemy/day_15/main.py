@@ -40,8 +40,9 @@ while is_on:
         print(f"Coffee: {resources['coffee']}g")
         print(f"Money: ${profit}")
     elif choice in ['espresso', 'latte', 'cappuccino']:
-        if len(check_enough_resources(choice)) > 0:
-            print(f"Sorry there is not enough {choice}.")
+        ingredient = check_enough_resources(choice)
+        if len(ingredient) > 0:
+            print(f"Sorry there is not enough {ingredient}.")
         else:  # we are able to do your drink
             print("Please insert coin.")
             quarters = float(input("how many quarters?: "))

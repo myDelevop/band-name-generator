@@ -1,6 +1,7 @@
 import random
 import art
 import game_data
+from replit import clear
 
 
 def get_random_name(is_a):
@@ -24,7 +25,7 @@ while you_win:
     print(art.vs)
     num_b_followers = get_random_name(False)
 
-    choice = input("Who has more followers? Type 'A' or 'B': ")
+    choice = input("Who has more followers? Type 'A' or 'B': ").upper()
     winner = ''
 
     if num_a_followers >= num_b_followers:
@@ -37,6 +38,7 @@ while you_win:
     if winner == choice:
         score += 1
         print(f"You're right! Current score: {score}.")
+        clear()
     else:
         print(f"Sorry, that's wrong. Final score: {score}")
         you_win = False

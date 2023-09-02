@@ -52,7 +52,7 @@ while is_on:
             user_money = compute_total(quarters, dimes, nickles, pennies)
             drink_price = MENU[choice]['cost']
 
-            if (drink_price, 2) > (user_money, 2):
+            if round(drink_price, 2) > round(user_money, 2):
                 print("Sorry that's not enough money. Money refunded.")
             elif round(drink_price, 2) == round(user_money, 2):
                 profit += drink_price

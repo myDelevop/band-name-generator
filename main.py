@@ -1,4 +1,5 @@
 import random
+import heroes
 
 # Write your code below this line 👇
 print("Hello World!")
@@ -195,4 +196,5 @@ for number in range(1, 101):
     total += number
 print(total)
 
-
+print(heroes.gen())
+print (heroes.genarr(3))

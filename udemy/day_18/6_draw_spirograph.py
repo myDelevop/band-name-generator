@@ -2,12 +2,13 @@ import turtle
 import random
 
 RADIUS = 100
+turtle.colormode(255)
 
 
 def change_color(t: turtle.Turtle):
-    r = random.random()
-    g = random.random()
-    b = random.random()
+    r = random.randint(0, 255)
+    g = random.randint(0, 255)
+    b = random.randint(0, 255)
 
     t.color(r, g, b)
 

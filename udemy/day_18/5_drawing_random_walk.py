@@ -1,11 +1,13 @@
 import turtle
 from random import random, randint, choice
 
+turtle.colormode(255)
+
 
 def change_color(t: turtle.Turtle):
-    r = random()
-    g = random()
-    b = random()
+    r = randint(0, 255)
+    g = randint(0, 255)
+    b = randint(0, 255)
 
     t.color(r, g, b)
 

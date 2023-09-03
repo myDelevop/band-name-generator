@@ -15,13 +15,12 @@ def change_color(t: turtle.Turtle):
 
 timmy = turtle.Turtle()
 timmy.shape("turtle")
-change_color(timmy)
 timmy.speed("fastest")
 
 for _ in range(40):
+    change_color(timmy)
     timmy.circle(100)
     timmy.left(10)
-    change_color(timmy)
 
 screen = turtle.Screen()
 screen.exitonclick()

@@ -53,12 +53,12 @@ if bet:
 winners = []
 
 while is_race_on:
-    ran_distance_red = random.randint(0,10)
-    ran_distance_orange = random.randint(0,10)
-    ran_distance_yellow = random.randint(0,10)
-    ran_distance_green = random.randint(0,10)
-    ran_distance_blue = random.randint(0,10)
-    ran_distance_purple = random.randint(0,10)
+    ran_distance_red = random.randint(0, 10)
+    ran_distance_orange = random.randint(0, 10)
+    ran_distance_yellow = random.randint(0, 10)
+    ran_distance_green = random.randint(0, 10)
+    ran_distance_blue = random.randint(0, 10)
+    ran_distance_purple = random.randint(0, 10)
 
     red.forward(ran_distance_red)
     orange.forward(ran_distance_orange)

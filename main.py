@@ -198,3 +198,15 @@ print(total)
 
 print(heroes.gen())
 print (heroes.genarr(3))
+
+
+piano_keys = ["a", "b", "c", "d", "e", "f", "g"]
+
+print(piano_keys[2:5])  # it slices from 2 to 5
+print(piano_keys[2:])  # it slices from 2 to the end
+print(piano_keys[:5])  # it slices from the beginning to the 5
+
+print(piano_keys[2:5:2])  # the last parameter how many want to skip
+print(piano_keys[::5])  # the last parameter how many want to skip
+print(piano_keys[::-1])  # Reverse the list
+

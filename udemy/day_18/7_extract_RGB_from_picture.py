@@ -34,6 +34,7 @@ colors_list = [(202, 164, 110), (149, 75, 50), (222, 201, 136), (53, 93, 123), (
 
 timmy = turtle.Turtle()
 timmy.shape("turtle")
+timmy.hideturtle()  # if you want
 
 timmy.pu()
 timmy.setpos((X_POS, Y_POS))
@@ -44,7 +45,7 @@ for i in range(0, 10):
         timmy.setpos((X_POS, timmy.pos()[1] + Y_GAP))
     timmy.pu()
     timmy.pd()
-    for j in range(0, 10):
+    for _ in range(0, 10):
         timmy.dot(20, random.choice(colors_list))
         timmy.pu()
         timmy.forward(X_GAP)

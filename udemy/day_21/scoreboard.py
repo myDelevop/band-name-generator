@@ -19,3 +19,7 @@ class ScorerBoard(Turtle):
         self.score += point
         self.clear()
         self.write(f"Score: {self.score}", move=MOVE, align=ALIGN, font=FONT)
+
+    def game_over(self):
+        self.goto(0, 0)
+        self.write("GAME OVER.", move=MOVE, align=ALIGN, font=FONT)

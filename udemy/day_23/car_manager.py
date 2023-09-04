@@ -22,4 +22,7 @@ class CarManager(Turtle):
         self.forward(self.distance)
 
     def level_up(self):
-        self.distance += MOVE_INCREMENT
+        self.distance = STARTING_MOVE_DISTANCE + MOVE_INCREMENT
+
+    def set_speed(self, speed):
+        self.distance = speed

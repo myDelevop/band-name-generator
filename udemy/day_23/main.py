@@ -25,6 +25,8 @@ while game_is_on:
         car = CarManager()
         cars.append(car)
 
+        car.set_speed(cars[0].distance)
+
     for c in cars:
         c.move()
 
@@ -45,7 +47,3 @@ while game_is_on:
     time.sleep(0.1)
     screen.update()
     num_of_loops += 1
-
-
-screen.exitonclick()
-

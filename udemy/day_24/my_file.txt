@@ -1,0 +1,2 @@
+New text from python
+This is a new line

@@ -11,7 +11,7 @@ class CarManager(Turtle):
         super().__init__()
         self.pu()
         y_pos = random.randint(-250, 250)
-        self.setposition((280, y_pos))
+        self.setposition((300, y_pos))
         self.setheading(180)  # 0
         self.shape("square")
         self.color(random.choice(COLORS))

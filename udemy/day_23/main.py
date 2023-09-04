@@ -47,3 +47,6 @@ while game_is_on:
     time.sleep(0.1)
     screen.update()
     num_of_loops += 1
+
+
+screen.exitonclick()

@@ -210,5 +210,3 @@ print(piano_keys[2:5:2])  # the last parameter how many want to skip
 print(piano_keys[::5])  # the last parameter how many want to skip
 print(piano_keys[::-1])  # Reverse the list
 
-
-

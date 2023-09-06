@@ -1,6 +1,7 @@
 # Unlimited POSITIONAL arguments (args[0) = 3, first argument)
 
 def add(*args):
+    # type iterable tuple
     res = 0
     for n in args:
         res += n

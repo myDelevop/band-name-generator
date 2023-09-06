@@ -3,9 +3,9 @@ from tkinter import *
 
 def convert_miles_to_km():
     user_input = float(miles_entry.get())
-    km = user_input * 1.6
-    km_num_label.config(text=str(int(km)))
-    print(km)
+    km_str = str(round(float(user_input * 1.609), 2))
+    km_num_label.config(text=km_str)
+    print(km_str)
 
 
 window = Tk()
@@ -13,7 +13,7 @@ window.title("Mile to Km Converter")
 window.config(padx=40, pady=20)
 window.minsize(width=290, height=100)
 
-miles_entry = Entry(width=10, takefocus=True)
+miles_entry = Entry(width=7)
 miles_entry.grid(row=0, column=1)
 
 miles_label = Label(text="Miles", padx=10, font=("Arial", 10, "bold"))

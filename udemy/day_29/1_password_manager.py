@@ -6,6 +6,8 @@ from random import choice, randint, shuffle
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_psw():
+    psw_entry.delete(0, END)
+
     # Password Generator Project
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
                's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',

@@ -1,5 +1,6 @@
 import time
 from tkinter import *
+from tkinter import messagebox
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
@@ -11,23 +12,33 @@ def generate_psw():
 
 
 def save_psw():
-    global empty_field
     website_string = website_entry.get().strip()
     user_string = user_entry.get().strip()
     psw_string = psw_entry.get().strip()
 
-    empty_field.config(fg="red")
+    # if website_string == "" or psw_string == "" or user_string == "":
+    #     messagebox.showinfo(title="Oops", message="Please make sure you haven't left any fields empty")
+
     if website_string == "":
-        empty_field.config(text="Insert the website")
+        messagebox.showinfo(title="Empty field", message="You must insert a website")
     elif user_string == "":
-        empty_field.config(text="Insert a username")
+        messagebox.showinfo(title="Empty field", message="You must insert a user")
     elif psw_string == "":
-        empty_field.config(text="Insert the password")
+        messagebox.showinfo(title="Empty field", message="You must insert a password")
     else:
-        f = open("data.txt", "a")
-        f.write(f"{website_string} | {user_string} | {psw_string}\n")
-        f.close()
-        empty_field.config(fg="green", text="Password Added Successfully")
+        is_ok = messagebox.askokcancel("Insert Values",
+                                       "These are the details entered: \n"
+                                       f"website: {website_string}\n"
+                                       f"user: {user_string}\n"
+                                       f"password: {psw_string}\n"
+                                       "Is it ok to save?")
+        if is_ok:
+            f = open("data.txt", "a")
+            f.write(f"{website_string} | {user_string} | {psw_string}\n")
+            f.close()
+            messagebox.showinfo(title="Success", message="Your record has been inserted successfully")
+            website_entry.delete(0, END)
+            psw_entry.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -35,11 +46,7 @@ window = Tk()
 window.title("Password Manager")
 window.config(bg="#D3D3D3", padx=50, pady=50)
 
-empty_field = Label(text="", bg="#D3D3D3", fg="red")
-empty_field.grid(row=5, column=1)
-
-
-canvas = Canvas(width=200, height=200, bg="#D3D3D3", highlightthickness=0,)
+canvas = Canvas(width=200, height=200, bg="#D3D3D3", highlightthickness=0, )
 logo_img = PhotoImage(file="logo.png")
 canvas.create_image(100, 100, image=logo_img)
 canvas.grid(row=0, column=1)

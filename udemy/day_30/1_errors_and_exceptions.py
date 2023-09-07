@@ -24,6 +24,7 @@ while is_error is True:
         # if it doesn't exist we create the file opening in write
         print("Caught FileNotFoundError: " + str(fnt_message))
         a_file = open("a_file.txt", "w")
+        a_file.close()
     except KeyError as ke_message:
         print("Caught KeyError: " + str(ke_message))
         a_dictionary["not_existing_key"] = "Some Value"

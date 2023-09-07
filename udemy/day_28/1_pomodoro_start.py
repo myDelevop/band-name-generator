@@ -56,6 +56,11 @@ def count_down(count):
         window.after(1000, count_down, count - 1)
     else:
         start_timer()
+        marks = ""
+        for _ in range(math.floor(reps/2)):
+            marks += "✔"
+        check_label.config(text=marks)
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -79,7 +84,7 @@ start_button = Button(text="Start", highlightthickness=0, command=start_timer)
 start_button.grid(row=2, column=0)
 
 
-check_label = Label(text="✔", font=(FONT_NAME, 22, "bold"), fg=GREEN, bg=YELLOW)
+check_label = Label(font=(FONT_NAME, 22, "bold"), fg=GREEN, bg=YELLOW)
 check_label.grid(row=3, column=1, pady=10)
 
 

@@ -7,10 +7,7 @@ now = dt.datetime.now()
 week = now.weekday()
 week_day = now.strftime('%A')
 
-data_dict = [{
-    "author": "XXX",
-    "quote": "CC"
-}]
+data_dict = []
 
 if week == 0:
     data_frame = pandas.read_csv("quotes.txt")

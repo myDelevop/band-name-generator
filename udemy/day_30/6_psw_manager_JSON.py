@@ -5,6 +5,25 @@ from tkinter import messagebox
 from random import choice, randint, shuffle
 
 
+# ------------------------------ SEARCH WEBSITE--------------------------------- #
+def find_password():
+    website = website_entry.get().strip()
+    try:
+        with open("data.json", "r") as data_file:
+            data = json.load(data_file)
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error", message="No Data File Found")
+    else:
+        if website in data:
+            email = data[website]["user"]
+            password = data[website]["password"]
+            messagebox.showinfo(title=website, message=f"Email: {email}\n Password: {password}")
+        else:
+            messagebox.showinfo(title="Error", message=f"No details for {website} exists")
+
+
+
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_psw():
     psw_entry.delete(0, END)
@@ -35,7 +54,6 @@ def save_psw():
     website_string = website_entry.get().strip()
     user_string = user_entry.get().strip()
     psw_string = psw_entry.get().strip()
-
 
     # if website_string == "" or psw_string == "" or user_string == "":
     #     messagebox.showinfo(title="Oops", message="Please make sure you haven't left any fields empty")
@@ -90,9 +108,12 @@ canvas.grid(row=0, column=1)
 website_label = Label(text="Website:", bg="#D3D3D3")
 website_label.grid(row=1, column=0)
 
-website_entry = Entry(width=35)
+website_entry = Entry(width=32)
 website_entry.focus()
-website_entry.grid(row=1, column=1, columnspan=2, sticky="EW")
+website_entry.grid(row=1, column=1, sticky="W")
+
+search_button = Button(text="Search", width=7, command=find_password)
+search_button.grid(row=1, column=2, sticky="W")
 
 user_label = Label(text="Email/Username:", bg="#D3D3D3")
 user_label.grid(row=2, column=0)

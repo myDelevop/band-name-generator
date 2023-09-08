@@ -62,9 +62,13 @@ def save_psw():
                                        "Is it ok to save?")
 
         if is_ok:
-            with open("data.json", "r") as data_file:
-                data = json.load(data_file)
-                data.update(new_data)
+            try:
+                with open("data.json", "r") as data_file:
+                    data = json.load(data_file)
+                    data.update(new_data)
+            except FileNotFoundError:
+                with open("data.json", "w"):
+                    data = new_data
 
             with open("data.json", "w") as data_file:
                 json.dump(data, data_file, indent=4)

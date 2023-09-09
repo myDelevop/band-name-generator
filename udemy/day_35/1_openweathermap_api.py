@@ -1,8 +1,8 @@
 import requests
 
-API_KEY = "616c0c4adeae4dae56393cad2bc90fb4"
+API_KEY = "1f86fe2c78a10c19f4bfcd222e13fef6"
 WEATHER_ENDPOINT = "https://api.openweathermap.org/data/2.5/weather"
-ONE_CALL_ENDPOINT = "https://api.openweathermap.org/data/3.0/onecall?"
+ONE_CALL_ENDPOINT = "https://api.openweathermap.org/data/3.0/onecall"
 LAT = 40.645020
 LON = 17.516430
 

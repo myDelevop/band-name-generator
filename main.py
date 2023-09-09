@@ -160,14 +160,13 @@ print(f"Your love score is {love_score}")
 states = ["Delaware", "Pennsylvania", "...", "Hawaii"]
 
 print(states[0])  # is the first US State
-print(states[len(states)-1])  # is the last US State
+print(states[len(states) - 1])  # is the last US State
 
 states.append("RoccoLand")  # RoccoLand join the USA
-print(states[len(states)-1])  # is the last US State
+print(states[len(states) - 1])  # is the last US State
 
 states.extend(["state_2031", "state_2032", "state_future"])
-print(states[len(states)-1])
-
+print(states[len(states) - 1])
 
 dirty_dozen = ["Strawberries", "Spinach", "Kale", "Nectarines", "Apples", "Grapes",
                "Peaches", "Cherries", "Pears", "Tomatoes", "Celery", "Potatoes"]
@@ -184,7 +183,6 @@ for fruit in fruits:
     print(fruit)
     print(fruit + " Pie")
 
-
 for number in range(1, 11):
     print(number)
 
@@ -197,8 +195,7 @@ for number in range(1, 101):
 print(total)
 
 print(heroes.gen())
-print (heroes.genarr(3))
-
+print(heroes.genarr(3))
 
 piano_keys = ["a", "b", "c", "d", "e", "f", "g"]
 
@@ -210,3 +207,29 @@ print(piano_keys[2:5:2])  # the last parameter how many want to skip
 print(piano_keys[::5])  # the last parameter how many want to skip
 print(piano_keys[::-1])  # Reverse the list
 
+age: int
+
+age = 12  # OK
+
+
+# age = "twelve"  # KO
+
+
+def police_check(user_age: int):
+    if user_age > 18:
+        return True
+    else:
+        return False
+
+
+police_check(19)
+
+
+# police_check("CCC") ERROR
+
+def police_check_2(user_age: int) -> bool:
+    if user_age > 18:
+        # return "True" error
+        return True
+    else:
+        return False

@@ -1,15 +1,15 @@
 import requests
-
+import os
 
 USERNAME = "myuser97"
 GRAPH_ID = "graph1"
-TOKEN = "neiwfni7622ufh8uhqwe"
+PIXELA_TOKEN = os.environ.get("PIXELA_TOKEN")
 UPDATE_PIXEL_ENDPOINT = f"https://pixe.la/v1/users/{USERNAME}/graphs/{GRAPH_ID}/20230908"
 DELETE_PIXEL_ENDPOINT = UPDATE_PIXEL_ENDPOINT
 
 
 token_header = {
-    "X-USER-TOKEN": TOKEN
+    "X-USER-TOKEN": PIXELA_TOKEN
 }
 
 # update_pixel_parameters = {

@@ -1,10 +1,15 @@
 import requests
 import smtplib
+import os
 import time
 from datetime import datetime
 
 MY_LAT = 40.645020  # Your latitude
 MY_LONG = 17.516430  # Your longitude
+
+EMAIL_FROM = os.environ.get("EMAIL_FROM")
+EMAIL_FROM_psw = os.environ.get("EMAIL_FROM_psw")
+EMAIL_TO = os.environ.get("EMAIL_TO")
 
 
 def is_position_close_iss(iss_lat, iss_long):
@@ -20,8 +25,7 @@ def is_position_close_iss(iss_lat, iss_long):
     print("Latitude Distance: " + str(abs_latitude))
     print("Longitude Distance: " + str(abs_longitude))
 
-    if (abs_latitude < -5 or abs_latitude > 5
-            or abs_longitude < -5 or abs_longitude > 5):
+    if abs_latitude > 5 or abs_longitude > 5:
         is_close = False
 
     print("is_close: " + str(is_close))
@@ -62,18 +66,15 @@ while True:
 
     if iis_close and is_dark:
         print("Sending email...")
-        my_email = "rockdesires@gmail.com"
-        to_address = "rocco.caliandro@toptal.com"
-        password = "rwzuaeheaajizvma"
 
         with smtplib.SMTP("smtp.gmail.com") as connection:
             connection.starttls()
-            connection.login(user=my_email, password=password)
+            connection.login(user=EMAIL_FROM, password=EMAIL_FROM_psw)
 
-            connection.sendmail(from_addr=my_email,
-                                to_addrs=to_address,
+            connection.sendmail(from_addr=EMAIL_FROM,
+                                to_addrs=EMAIL_TO,
                                 msg="Subject:ISS Position\n\nHey! Look at the sky"
-                                    "you can see the ISS 😀")
+                                    "you can see the ISS")
         print("... email sent!")
 
     time.sleep(60)

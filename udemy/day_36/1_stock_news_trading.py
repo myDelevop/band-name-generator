@@ -1,19 +1,23 @@
 import datetime
 import requests
 import math
+import os
 from twilio.rest import Client
 
 ALPHAVANTAGE_ENDPOINT = "https://www.alphavantage.co/query"
-ALPHAVANTAGE_KEY = "YJ5NLGFD8O0ZO27D"
+ALPHAVANTAGE_KEY = os.environ.get("ALPHAVANTAGE_KEY")
 FUNCTION_NAME = "TIME_SERIES_DAILY"
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 
-NEWS_API_KEY = "e60ce3725ae54d46bb58edbeb5e3853d"
+NEWS_API_KEY = os.environ.get("NEWS_API_KEY")
 NEWS_API_ENDPOINT = "https://newsapi.org/v2/everything"
 
-TWILIO_ACCOUNT_SID = "AC786b223719271ebf37eebf6b394bdd74"
-TWILIO_AUTH_TOKEN = "9c71503212c8af6686eb93c35ac88284"
+TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID")
+TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")
+
+NUMBER_FROM = os.environ.get("NUMBER_FROM")
+NUMBER_TO = os.environ.get("NUMBER_TO")
 
 alphavantage_param = {
     "function": FUNCTION_NAME,
@@ -76,6 +80,6 @@ if abs(final_percent) > 1:  # Change to 5
 
         sms = twilio_client.messages.create(
             body=string_message,
-            from_="+15613162522",
-            to="+393282553672")
+            from_=NUMBER_FROM,
+            to=NUMBER_TO)
         print(sms.sid)

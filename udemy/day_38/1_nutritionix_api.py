@@ -1,10 +1,11 @@
 import requests
+import os
 from datetime import datetime
 
 NUTRITIONIX_USERNAME = "mawafi3528"
-NUTRITIONIX_PASSWORD = "MV9iic!in%A"
-NUTRITIONIX_APPLICATION_ID = "d888e201"
-NUTRITIONIX_APPLICATION_KEY = "1a9d7a45b664e6719c10b073db79a331"
+NUTRITIONIX_PASSWORD = os.environ.get("NUTRITIONIX_PASSWORD")
+NUTRITIONIX_APPLICATION_ID = os.environ.get("NUTRITIONIX_APPLICATION_ID")
+NUTRITIONIX_APPLICATION_KEY = os.environ.get("NUTRITIONIX_APPLICATION_KEY")
 NUTRITIONIX_ENDPOINT = "https://trackapi.nutritionix.com/v2/natural/exercise"
 
 SHEETY_ENDPOINT = "https://api.sheety.co/550056cfdf9916e403de58f74910dc55/myWorkouts/workouts"

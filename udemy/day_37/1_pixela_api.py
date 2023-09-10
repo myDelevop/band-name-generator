@@ -1,9 +1,10 @@
 import requests
+import os
 import datetime as dt
 
 USERNAME = "myuser97"
 GRAPH_ID = "graph1"
-TOKEN = "neiwfni7622ufh8uhqwe"
+PIXELA_TOKEN = os.environ.get("PIXELA_TOKEN")
 CREATE_USER_ENDPOINT = "https://pixe.la/v1/users"
 CREATE_GRAPH_ENDPOINT = f"{CREATE_USER_ENDPOINT}/{USERNAME}/graphs"
 POST_VALUE_ENDPOINT = f"{CREATE_GRAPH_ENDPOINT}/{GRAPH_ID}"
@@ -23,7 +24,7 @@ POST_VALUE_ENDPOINT = f"{CREATE_GRAPH_ENDPOINT}/{GRAPH_ID}"
 
 
 token_header = {
-    "X-USER-TOKEN": TOKEN
+    "X-USER-TOKEN": PIXELA_TOKEN
 }
 
 # create_graph_parameters = {

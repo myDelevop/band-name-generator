@@ -1,6 +1,7 @@
 import requests
+import os
 
-API_KEY = "616c0c4adeae4dae56393cad2bc90fb4"
+ONECALL_API_KEY = os.environ.get("ONECALL_API_KEY")
 ONE_CALL_ENDPOINT = "https://api.openweathermap.org/data/3.0/onecall"
 LAT = 40.645020
 LON = 17.516430
@@ -8,7 +9,7 @@ LON = 17.516430
 parameters = {
     "lat": LAT,
     "lon": LON,
-    "appid": API_KEY,
+    "appid": ONECALL_API_KEY,
     "exclude": "current,minutely,daily"
 }
 

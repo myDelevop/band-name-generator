@@ -42,8 +42,8 @@ for exercise in response_json["exercises"]:
             "date": today_date,
             "time": today_time,
             "exercise": exercise["name"].title(),
-            "duration": exercise["nf_calories"],
-            "calories": exercise["duration_min"]
+            "duration": exercise["duration_min"],
+            "calories": exercise["nf_calories"]
         }
     }
     requests.post(SHEETY_ENDPOINT, json=parameters)

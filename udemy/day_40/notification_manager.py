@@ -3,7 +3,6 @@ import os
 import smtplib
 from twilio.rest import Client
 
-
 TWILIO_SID = os.environ.get("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")
 
@@ -11,6 +10,7 @@ TWILIO_VIRTUAL_NUMBER = os.environ.get("NUMBER_FROM")
 TWILIO_VERIFIED_NUMBER = os.environ.get("NUMBER_TO")
 
 EMAIL_PROVIDER_TOKEN = os.environ.get("EMAIL_PROVIDER_TOKEN")
+
 
 class NotificationManager:
 

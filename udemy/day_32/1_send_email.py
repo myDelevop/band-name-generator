@@ -1,8 +1,9 @@
 import smtplib
+import os
 
 my_email = "rockdesires@gmail.com"
 to_address = "rocco.caliandro@toptal.com"
-password = "rwzuaeheaajizvma"
+password = os.environ.get("EMAIL_PROVIDER_TOKEN")
 
 with smtplib.SMTP("smtp.gmail.com") as connection:
     connection.starttls()

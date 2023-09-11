@@ -4,7 +4,7 @@ from flight_search import FlightSearch
 from notification_manager import NotificationManager
 
 data_manager = DataManager()
-sheet_data = data_manager.get_destination_data()
+sheet_data = data_manager.get_generic_data("prices")
 flight_search = FlightSearch()
 notification_manager = NotificationManager()
 

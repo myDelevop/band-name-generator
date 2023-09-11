@@ -1,27 +1,27 @@
 import os
 import requests
 
-SHEETY_PRICES_ENDPOINT = "https://api.sheety.co/550056cfdf9916e403de58f74910dc55/flightDeals/prices"
+SHEETY_PRICES_ENDPOINT = "https://api.sheety.co/550056cfdf9916e403de58f74910dc55/flightDeals/"
 SHEETY_BEARER_TOKEN = os.environ.get("SHEETY_BEARER_TOKEN_2")
 
 
 class DataManager:
     def __init__(self):
-        self.destination_data = {}
+        self.generic_data = {}
 
-    def get_destination_data(self):
+    def get_generic_data(self, entity):
         header = {
             "Authorization": SHEETY_BEARER_TOKEN,
             "Content-Type": "application/json"
         }
 
-        response = requests.get(url=SHEETY_PRICES_ENDPOINT, headers=header)
+        response = requests.get(url=SHEETY_PRICES_ENDPOINT+entity, headers=header)
         data = response.json()
-        self.destination_data = data["prices"]
-        return self.destination_data
+        self.generic_data = data[entity]
+        return self.generic_data
 
     def update_destination_codes(self):
-        for city in self.destination_data:
+        for city in self.generic_data:
             new_data = {
                 "price": {
                     "iataCode": city["iataCode"]

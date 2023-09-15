@@ -6,7 +6,7 @@ PROMISE_UP = 20
 
 
 # TWITTER_EMAIL = os.environ.get("TWITTER_EMAIL")
-TWITTER_EMAIL = "yanove73662"
+TWITTER_USER = os.environ.get("TWITTER_USER")
 TWITTER_PASSWORD = os.environ.get("TWITTER_PSW")
 
 
@@ -18,4 +18,4 @@ print("up: " + str(speed_twitter_bot.up))
 
 
 if speed_twitter_bot.down < PROMISE_DOWN or speed_twitter_bot.up < PROMISE_UP:
-    speed_twitter_bot.tweet_at_provider(PROMISE_DOWN, PROMISE_UP, TWITTER_EMAIL, TWITTER_PASSWORD)
+    speed_twitter_bot.tweet_at_provider(PROMISE_DOWN, PROMISE_UP, TWITTER_USER, TWITTER_PASSWORD)

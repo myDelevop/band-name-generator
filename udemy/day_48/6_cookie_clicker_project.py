@@ -1,7 +1,5 @@
 from threading import Thread
 import time
-
-from selenium.common.exceptions import StaleElementReferenceException
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
@@ -26,7 +24,7 @@ items = driver.find_elements(By.CSS_SELECTOR, "#store div")
 item_ids = [item.get_attribute("id") for item in items]
 
 timeout = time.time() + 5
-five_min = time.time() + 60*5 # 5minutes
+five_min = time.time() + 60 * 5  # 5minutes
 
 while True:
     cookie.click()

@@ -53,9 +53,18 @@ class InternetSpeedTwitterBot:
                                               "/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div/div/div/span/span")
         login_btn.click()
 
-        time.sleep(6)
+        time.sleep(10)
+        """
+        # whats_happening = driver.find_element(By.XPATH, 
+                                                value=("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/"
+                                                       "div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/"
+                                                       "div/div/div/div[2]/div/div/div/div/label/div[1]/div/div/div/"
+                                                       "div/div/div[2]/div/div/div/div")) """
+        whats_happening = driver.find_element(
+            By.CSS_SELECTOR,
+            value="div[class='public-DraftStyleDefault-block public-DraftStyleDefault-ltr']"
+        )
 
-        whats_happening = driver.find_element(By.XPATH, value="/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div[2]/div/div/div/div/label/div[1]/div/div/div/div/div/div[2]/div/div/div/div")
         whats_happening.click()
         whats_happening.send_keys(message)
         whats_happening.send_keys(Keys.CONTROL, Keys.ENTER)

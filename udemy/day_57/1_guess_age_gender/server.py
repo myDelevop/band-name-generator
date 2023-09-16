@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 GENDERIZE_ENDPOINT = "https://api.genderize.io"
 AGIFY_ENDPOINT = "https://api.agify.io"
+BLOG_URL = "https://api.npoint.io/c790b4d5cab58020d391"
 
 
 @app.route('/')
@@ -36,6 +37,14 @@ def guess(name):
     )
 
 
+@app.route("/blog")
+def blog():
+    response = requests.get(BLOG_URL)
+    response.raise_for_status()
+    all_posts = response.json()
+    return render_template("blog.html", posts=all_posts)
+
+
 def get_age(name):
     params = {
         "name": name
@@ -58,4 +67,3 @@ def get_gender(name):
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
-

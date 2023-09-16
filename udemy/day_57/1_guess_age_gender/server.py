@@ -37,8 +37,9 @@ def guess(name):
     )
 
 
-@app.route("/blog")
-def blog():
+@app.route("/blog/<num>")
+def blog(num):
+    print(num)
     response = requests.get(BLOG_URL)
     response.raise_for_status()
     all_posts = response.json()

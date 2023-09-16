@@ -6,6 +6,7 @@ app = Flask(__name__)
 random_num = random.randint(0, 9)
 print(random_num)
 
+
 # We need to sent env variable and run flask run from Terminal (see 2_hello)
 @app.route('/')
 def hello_world():

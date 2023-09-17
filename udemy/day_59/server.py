@@ -8,9 +8,11 @@ response = requests.get(BLOG_ENDPOINT)
 response.raise_for_status()
 all_blogs = response.json()
 
+
 @app.route('/')
 def home():
     return render_template(template_name_or_list="index.html", json_blogs=all_blogs)
+
 
 @app.route('/about')
 def about():
@@ -20,6 +22,14 @@ def about():
 @app.route('/contact')
 def contact():
     return render_template("contact.html")
+
+
+@app.route('/post/<int:post_id>')
+def post(post_id):
+    for p in all_blogs:
+        if p["id"] == post_id:
+            current_post = p
+    return render_template("post.html", post=current_post)
 
 
 if __name__ == "__main__":

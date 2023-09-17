@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title> {{ blog["title"][0] }} </title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/styles.css">
 </head>
@@ -13,8 +13,9 @@
            </div>
         <div class="content">
             <div class="card">
-                <h2>Title</h2>
-                <p>Post Body</p>
+                <h1>{{ blog["title"][0] }}</h1>
+                <h2>{{ blog["subtitle"][0] }}</h2>
+                <p>{{ blog["body"] }}</p>
             </div>
 
     </div>

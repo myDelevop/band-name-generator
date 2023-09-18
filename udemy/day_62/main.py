@@ -45,12 +45,9 @@ def add_cafe():
     if form.validate_on_submit():
         for field in form:
             if field.name.lower() != 'submit' and field.name.lower() != "csrf_token":
-                print(type(field.data))
-                print(field.data)
-                print(field.name)
                 csv += (field.data + ",")
         csv = csv.rstrip(",")
-
+        print(csv + "aaa")
         with open('cafe-data.csv', "a", encoding='utf-8') as csv_file:
             csv_file.write(csv)
 

@@ -1,8 +1,8 @@
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import StringField, SubmitField, SelectField
+from wtforms.validators import DataRequired, URL, Regexp
 import csv
 
 
@@ -13,6 +13,14 @@ Bootstrap5(app)
 
 class CafeForm(FlaskForm):
     cafe = StringField('Cafe name', validators=[DataRequired()])
+    location = StringField('Location', validators=[DataRequired(), URL()])
+    open_hour = StringField("Opening Time e.g. 8AM", validators=[DataRequired()])
+    closed_hour = StringField("Closing Time e.g. 5:30PM", validators=[DataRequired()])
+
+    cafe_rating = SelectField('Coffee Rating', choices=['☕', '☕☕', '☕☕☕', '☕☕☕☕', '☕☕☕☕☕'])
+    wifi_rating: str = SelectField('WiFi Strength Rating', choices=['✘', '💪', '💪💪', '💪💪💪', '💪💪💪💪', '💪💪💪💪💪'])
+    socket_availability: str = SelectField('Power Socket Aviability', choices=['✘', '🔌', '🔌🔌', '🔌🔌🔌', '🔌🔌🔌🔌', '🔌🔌🔌🔌🔌'])
+
     submit = SubmitField('Submit')
 
 # Exercise:
@@ -30,11 +38,23 @@ def home():
     return render_template("index.html")
 
 
-@app.route('/add')
+@app.route('/add', methods=["GET", "POST"])
 def add_cafe():
     form = CafeForm()
+    csv = "\n"
     if form.validate_on_submit():
-        print("True")
+        for field in form:
+            if field.name.lower() != 'submit' and field.name.lower() != "csrf_token":
+                print(type(field.data))
+                print(field.data)
+                print(field.name)
+                csv += (field.data + ",")
+    csv = csv.rstrip(",")
+
+    with open('cafe-data.csv', "a", encoding='utf-8') as csv_file:
+        csv_file.write(csv)
+
+
     # Exercise:
     # Make the form write a new row into cafe-data.csv
     # with   if form.validate_on_submit()

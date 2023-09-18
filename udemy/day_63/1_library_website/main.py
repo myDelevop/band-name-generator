@@ -24,6 +24,7 @@ def convert_scalar_to_ojb(scalars):
     all_books = []
     for s in scalars:
         obj = {
+            "id": s.id,
             "title": s.title,
             "author": s.author,
             "rating": s.rating
@@ -52,6 +53,19 @@ def add():
             db.session.commit()
         return redirect(url_for('home'))
     return render_template('add.html')
+
+
+@app.route("/edit/<book_id>", methods=["GET", "POST"])
+def edit(book_id):
+    if request.method == "POST":
+        with app.app_context():
+            book_to_update = db.session.execute(db.select(Book).where(Book.id == book_id)).scalar()
+            # or book_to_update = db.get_or_404(Book, book_id)
+            book_to_update.rating = request.form["new_rating"]
+            db.session.commit()
+        return redirect(url_for('home'))
+    book_selected = db.get_or_404(Book, book_id)
+    return render_template('edit.html', book=book_selected)
 
 
 if __name__ == "__main__":

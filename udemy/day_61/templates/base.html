@@ -10,8 +10,15 @@
             }
         {% endblock %}
     </style>
+
+    {{ bootstrap.load_css() }}
 </head>
 <body>
-    {% block content%} {% endblock %}
+
+    {% block content%}
+
+    {% endblock %}
+
+    {{ bootstrap.load_js() }}
 </body>
 </html>

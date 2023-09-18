@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
+{% extends "base.html" %}
   <head>
-    <title>Secrets</title>
+    {% block title %}Secrets{% endblock %}
   </head>
+
   <body>
+  {% block content %}
     <div class="jumbotron">
       <div class="container">
         <h1>Welcome</h1>
@@ -16,5 +19,6 @@
         </form>
       </div>
     </div>
+  {% endblock %}
   </body>
 </html>

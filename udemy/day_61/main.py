@@ -1,3 +1,4 @@
+from flask_bootstrap import Bootstrap5
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
@@ -7,6 +8,9 @@ import LoginForm
 
 app = Flask(__name__)
 app.secret_key = "adsnviu3iuebvuiwebDscVvsdviu"
+
+bootstrap = Bootstrap5(app)
+
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])

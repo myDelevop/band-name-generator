@@ -10,9 +10,31 @@
       <h1>All Cafes</h1>
 
 	  <table class="table table-dark table-striped table-hover">
-          <!-- This is where you will write the code to render a Bootstrap 
-          Table that contains all the information from the 
-          cafe-data.csv file. -->
+          <thead>
+            <tr>
+                {% for column in cafes[0] %}
+                    <th scope="col"> {{column}} </th>
+                {% endfor %}
+            </tr>
+          </thead>
+
+          <tbody>
+
+            {% for list in cafes[1:] %}
+                <tr>
+                    {% for elem in list %}
+                        {% if elem[0:4] == "http" %}
+                            <td>
+                                <a href='{{ elem }}' target="_blank">Maps Link</a>
+                            </td>
+                        {% else %}
+                            <td> {{ elem }} </td>
+                        {% endif %}
+                   {% endfor %}
+                </tr>
+            {% endfor %}
+          </tbody>
+
   	  </table>
 
       <p><a href="#">Return to index page</a></p>

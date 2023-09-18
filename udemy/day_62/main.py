@@ -49,15 +49,11 @@ def add_cafe():
                 print(field.data)
                 print(field.name)
                 csv += (field.data + ",")
-    csv = csv.rstrip(",")
+        csv = csv.rstrip(",")
 
-    with open('cafe-data.csv', "a", encoding='utf-8') as csv_file:
-        csv_file.write(csv)
+        with open('cafe-data.csv', "a", encoding='utf-8') as csv_file:
+            csv_file.write(csv)
 
-
-    # Exercise:
-    # Make the form write a new row into cafe-data.csv
-    # with   if form.validate_on_submit()
     return render_template('add.html', form=form)
 
 

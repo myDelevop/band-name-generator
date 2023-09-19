@@ -29,18 +29,19 @@ app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///movies.db"
 db.init_app(app)
 
-ENDPOINT_MOVIE_DB_URL = "https://api.themoviedb.org/3/search/movie"
+ENDPOINT_SEARCH_MOVIE_DB_URL = "https://api.themoviedb.org/3/search/movie"
+ENDPOINT_DETAIL_MOVIE_DB_URL = "https://api.themoviedb.org/3/movie"
 MOVIE_DB_API_READ_ACCESS_TOKEN = os.environ.get("MOVIE_DB_API_READ_ACCESS_TOKEN")
-
+MOVIE_DB_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 
 class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250), unique=True, nullable=False)
     year = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(450), nullable=False)
-    rating = db.Column(db.Float, nullable=False)
-    ranking = db.Column(db.Integer, nullable=False)
-    review = db.Column(db.String(300), nullable=False)
+    rating = db.Column(db.Float)
+    ranking = db.Column(db.Integer)
+    review = db.Column(db.String(300))
     img_url = db.Column(db.String(300), nullable=False)
 
 
@@ -122,32 +123,48 @@ def delete(movie_id):
     return redirect(url_for('home'))
 
 
+movie_db_headers = {
+            "accept": "application/json",
+            "Authorization": f"Bearer {MOVIE_DB_API_READ_ACCESS_TOKEN}"
+        }
+
 @app.route("/add", methods=["GET", "POST"])
 def add():
     form = AddMovieForm()
     if form.validate_on_submit():
         title = request.form.get("title")
 
-        headers = {
-            "accept": "application/json",
-            "Authorization": f"Bearer {MOVIE_DB_API_READ_ACCESS_TOKEN}"
-        }
-
         params = {
-            "query": title,
-            "include_adult": "false",
-            "language": "en",
-            "page": "1"
+            "query": title
         }
 
-        resp = requests.get(ENDPOINT_MOVIE_DB_URL, headers=headers, params=params)
+        resp = requests.get(ENDPOINT_SEARCH_MOVIE_DB_URL, headers=movie_db_headers, params=params)
         resp.raise_for_status()
         movie_data = resp.json()["results"]
-        print(movie_data)
 
-        return redirect(url_for('home'))
+        return render_template('select.html', movies=movie_data)
     else:
         return render_template('add.html', form=form)
+
+
+@app.route("/select/<movie_id>")
+def select(movie_id):
+
+    resp = requests.get(ENDPOINT_DETAIL_MOVIE_DB_URL+f"/{movie_id}", headers=movie_db_headers)
+    resp.raise_for_status()
+    movie_data = resp.json()
+
+    new_movie = Movie(
+        title=movie_data["title"],
+        year=movie_data["release_date"].split("-")[0],
+        img_url=f"{MOVIE_DB_IMAGE_URL}{movie_data['poster_path']}",
+        description=movie_data["overview"]
+    )
+
+    db.session.add(new_movie)
+    db.session.commit()
+
+    return redirect(url_for("edit", movie_id=new_movie.id))
 
 
 def convert_scalar_to_ojb(scalar_movies):

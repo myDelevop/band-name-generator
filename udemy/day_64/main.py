@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, FloatField
 from wtforms.validators import DataRequired
 import requests
 
@@ -67,6 +67,11 @@ with app.app_context():
 #     db.session.add(second_movie)
 #     db.session.commit()
 
+class EditMovieForm(FlaskForm):
+    rating = FloatField('Your Rating  Out of 10 e.g. 7.5', validators=[DataRequired()])
+    review = StringField('Your Review', validators=[DataRequired()])
+
+    submit = SubmitField('Done')
 
 @app.route("/")
 def home():
@@ -75,6 +80,28 @@ def home():
         scalar_movies = result.scalars()
         all_movies = convert_scalar_to_ojb(scalar_movies)
     return render_template("index.html", movies=all_movies)
+
+
+@app.route("/edit/<movie_id>", methods=["GET", "POST"])
+def edit(movie_id):
+    form = EditMovieForm()
+    if form.validate_on_submit():
+        review = request.form.get("review")
+        rating = request.form.get("rating")
+
+        # Update item in DB
+        with app.app_context():
+            movie_to_update = db.session.execute(db.select(Movie).where(Movie.id == movie_id)).scalar()
+            movie_to_update.review = review
+            movie_to_update.rating = rating
+            db.session.commit()
+        return redirect(url_for('home'))
+    else:
+        # Read A Particular Record By Query
+        with app.app_context():
+            current_scalar = [db.session.execute(db.select(Movie).where(Movie.id == movie_id)).scalar()]
+            current_movie = convert_scalar_to_ojb(current_scalar)[0]
+        return render_template('edit.html', movie=current_movie, form=form)
 
 
 def convert_scalar_to_ojb(scalar_movies):

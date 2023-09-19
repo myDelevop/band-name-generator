@@ -70,8 +70,28 @@ with app.app_context():
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    with app.app_context():
+        result = db.session.execute(db.select(Movie).order_by(Movie.title))
+        scalar_movies = result.scalars()
+        all_movies = convert_scalar_to_ojb(scalar_movies)
+    return render_template("index.html", movies=all_movies)
 
+
+def convert_scalar_to_ojb(scalar_movies):
+    all_movies = []
+    for s in scalar_movies:
+        obj = {
+            "id": s.id,
+            "title": s.title,
+            "year": s.year,
+            "description": s.description,
+            "rating": s.rating,
+            "ranking": s.ranking,
+            "review": s.review,
+            "img_url": s.img_url
+        }
+        all_movies.append(obj)
+    return all_movies
 
 if __name__ == '__main__':
     app.run(debug=False)

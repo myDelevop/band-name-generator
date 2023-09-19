@@ -3,8 +3,10 @@ from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Length
+import os
 import requests
+
 
 '''
 Red underlines? Install the required packages first: 
@@ -26,6 +28,9 @@ app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///movies.db"
 db.init_app(app)
+
+ENDPOINT_MOVIE_DB_URL = "https://api.themoviedb.org/3/search/movie"
+MOVIE_DB_API_READ_ACCESS_TOKEN = os.environ.get("MOVIE_DB_API_READ_ACCESS_TOKEN")
 
 
 class Movie(db.Model):
@@ -70,8 +75,12 @@ with app.app_context():
 class EditMovieForm(FlaskForm):
     rating = FloatField('Your Rating  Out of 10 e.g. 7.5', validators=[DataRequired()])
     review = StringField('Your Review', validators=[DataRequired()])
-
     submit = SubmitField('Done')
+
+
+class AddMovieForm(FlaskForm):
+    title = StringField('Movie Title', validators=[DataRequired(), Length(min=1, max=250)])
+    submit = SubmitField('Add Movie')
 
 @app.route("/")
 def home():
@@ -104,6 +113,43 @@ def edit(movie_id):
         return render_template('edit.html', movie=current_movie, form=form)
 
 
+@app.route("/delete/<movie_id>")
+def delete(movie_id):
+    with app.app_context():
+        movie_to_delete = db.session.execute(db.select(Movie).where(Movie.id == movie_id)).scalar()
+        db.session.delete(movie_to_delete)
+        db.session.commit()
+    return redirect(url_for('home'))
+
+
+@app.route("/add", methods=["GET", "POST"])
+def add():
+    form = AddMovieForm()
+    if form.validate_on_submit():
+        title = request.form.get("title")
+
+        headers = {
+            "accept": "application/json",
+            "Authorization": f"Bearer {MOVIE_DB_API_READ_ACCESS_TOKEN}"
+        }
+
+        params = {
+            "query": title,
+            "include_adult": "false",
+            "language": "en",
+            "page": "1"
+        }
+
+        resp = requests.get(ENDPOINT_MOVIE_DB_URL, headers=headers, params=params)
+        resp.raise_for_status()
+        movie_data = resp.json()["results"]
+        print(movie_data)
+
+        return redirect(url_for('home'))
+    else:
+        return render_template('add.html', form=form)
+
+
 def convert_scalar_to_ojb(scalar_movies):
     all_movies = []
     for s in scalar_movies:
@@ -120,5 +166,6 @@ def convert_scalar_to_ojb(scalar_movies):
         all_movies.append(obj)
     return all_movies
 
+
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

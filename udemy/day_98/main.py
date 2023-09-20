@@ -11,6 +11,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 db = SQLAlchemy()
 db.init_app(app)
 
+# DOWNLOAD FROM FOLDER
+app.config['UPLOAD_FOLDER'] = 'static/files/'
+
 
 # CREATE TABLE IN DB
 class User(db.Model):
@@ -60,7 +63,8 @@ def logout():
 
 @app.route('/download')
 def download():
-    pass
+    return send_from_directory(
+        app.config['UPLOAD_FOLDER'], "cheat_sheet.pdf", as_attachment=True)
 
 
 if __name__ == "__main__":

@@ -48,6 +48,12 @@ def register():
         name = request.form.get("name")
         email = request.form.get("email")
 
+        result = db.session.execute(db.select(User).where(User.email == email))
+        user = result.scalar()
+        if user is not None:
+            flash("You've already signed up with that mail, log in instead!", "error")
+            return render_template("login.html")
+
         password = (generate_password_hash
                     (request.form.get("password"),
                      'pbkdf2:sha256',
@@ -75,11 +81,16 @@ def login():
         result = db.session.execute(db.select(User).where(User.email == email))
         user = result.scalar()
 
+        if user is None:
+            flash('The email does not exists. Please try again!', 'error')
+
         # Check stored password hash against entered password hashed.
-        if check_password_hash(user.password, password):
+        elif check_password_hash(user.password, password):
             login_user(user)
             return redirect(url_for('secrets'))
-
+        else:
+            flash('Password incorrect, please try again', 'error')
+            return render_template("login.html")
     return render_template("login.html")
 
 

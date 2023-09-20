@@ -6,6 +6,8 @@ from flask_gravatar import Gravatar
 from flask_login import UserMixin, login_user, LoginManager, current_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
+
+from sqlalchemy import ForeignKey
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 # Import your forms from the forms.py
@@ -41,23 +43,27 @@ def admin_only(f):
 
 
 # CONFIGURE TABLES
-class BlogPost(db.Model):
-    __tablename__ = "blog_posts"
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(250), unique=True, nullable=False)
-    subtitle = db.Column(db.String(250), nullable=False)
-    date = db.Column(db.String(250), nullable=False)
-    body = db.Column(db.Text, nullable=False)
-    author = db.Column(db.String(250), nullable=False)
-    img_url = db.Column(db.String(250), nullable=False)
-
-
 class User(UserMixin, db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(250), nullable=False, unique=True)
     name = db.Column(db.String(250), nullable=False)
     password = db.Column(db.String(250), nullable=False)
+
+    posts = relationship("BlogPost", back_populates="author")
+
+
+class BlogPost(db.Model):
+    __tablename__ = "blog_posts"
+    id = db.Column(db.Integer, primary_key=True)
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    author = relationship("User", back_populates="posts")
+    title = db.Column(db.String(250), unique=True, nullable=False)
+    subtitle = db.Column(db.String(250), nullable=False)
+    date = db.Column(db.String(250), nullable=False)
+    body = db.Column(db.Text, nullable=False)
+    img_url = db.Column(db.String(250), nullable=False)
+
 
 
 with app.app_context():
@@ -70,11 +76,12 @@ def add_new_post():
     form = CreatePostForm()
     if form.validate_on_submit():
         new_post = BlogPost(
+            author_id=current_user.id,
+            author=current_user,
             title=form.title.data,
             subtitle=form.subtitle.data,
             body=form.body.data,
             img_url=form.img_url.data,
-            author=current_user,
             date=date.today().strftime("%B %d, %Y")
         )
         db.session.add(new_post)

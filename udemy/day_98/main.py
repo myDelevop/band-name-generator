@@ -29,8 +29,16 @@ def home():
     return render_template("index.html")
 
 
-@app.route('/register')
+@app.route('/register', methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        name = request.form.get("email")
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        db.session.add(User(name=name, email=email, password=password))
+        db.session.commit()
+        return render_template("secrets.html")
     return render_template("register.html")
 
 

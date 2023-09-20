@@ -1,15 +1,18 @@
-from flask import Flask, render_template, redirect, url_for
+from time import strftime
+
+from flask import Flask, render_template, request,redirect, url_for
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditor, CKEditorField
-from datetime import date
-
+from datetime import date, datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['CKEDITOR_PKG_TYPE'] = 'standard-all'
+ckeditor = CKEditor(app)
 Bootstrap5(app)
 
 # CONNECT TO DB
@@ -45,7 +48,43 @@ def show_post(post_id):
     return render_template("post.html", post=requested_post)
 
 
+class PostForm(FlaskForm):
+    title = StringField('Blog Post Title')
+    subtitle = StringField('Subtitle')
+    author = StringField('Your Name')
+    img_url = StringField('Blog Image URL')
+    # Date
+    body = CKEditorField('Blog Content')  # <--
+    submit = SubmitField('Submit Post')
+
+
 # TODO: add_new_post() to create a new blog post
+@app.route('/add', methods=["GET", "POST"])
+def add_new_post():
+    form = PostForm()
+
+    if form.validate_on_submit():
+        date_now = datetime.now().strftime(strftime("%B %d, %Y"))
+        title = request.form.get("title")
+        subtitle = request.form.get("subtitle")
+        author = request.form.get("author")
+        img_url = request.form.get("img_url")
+        body = request.form.get("body")  # <--
+
+        post = BlogPost(
+            title=title,
+            subtitle=subtitle,
+            author=author,
+            date=date_now,
+            img_url=img_url,
+            body=body)
+
+        db.session.add(post)
+        db.session.commit()
+
+        return redirect(url_for('get_all_posts'))
+    else:
+        return render_template("make-post.html", form=form)
 
 # TODO: edit_post() to change an existing blog post
 

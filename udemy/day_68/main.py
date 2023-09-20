@@ -14,21 +14,31 @@ db.init_app(app)
 # DOWNLOAD FROM FOLDER
 app.config['UPLOAD_FOLDER'] = 'static/files/'
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+# Create a user_loader callback
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 
 # CREATE TABLE IN DB
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
- 
- 
+    logged_user = ""
+
 with app.app_context():
     db.create_all()
 
 
 @app.route('/')
 def home():
+    print("CIAOO")
     return render_template("index.html")
 
 
@@ -43,26 +53,47 @@ def register():
                      'pbkdf2:sha256',
                      salt_length=8))
 
-        new_user = User(name=name, email=email, password=password)
+        new_user = User(email=email, password=password, name=name)
         db.session.add(new_user)
         db.session.commit()
-        return render_template("secrets.html", logged_user=new_user)
+
+        # Log in and authenticate user after adding details to database.
+        login_user(new_user)
+
+        # Can redirect() and get name from the current_user
+        return redirect(url_for("secrets"))
     return render_template("register.html")
 
 
-@app.route('/login')
+@app.route('/login', methods=["GET", "POST"])
 def login():
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        # Find user by email entered.
+        result = db.session.execute(db.select(User).where(User.email == email))
+        user = result.scalar()
+
+        # Check stored password hash against entered password hashed.
+        if check_password_hash(user.password, password):
+            login_user(user)
+            return redirect(url_for('secrets'))
+
     return render_template("login.html")
 
 
 @app.route('/secrets')
+@login_required
 def secrets():
-    return render_template("secrets.html")
+    print(current_user.name)
+    return render_template("secrets.html", name=current_user.name)
 
 
 @app.route('/logout')
 def logout():
-    pass
+    logout_user()
+    return redirect(url_for('home'))
 
 
 @app.route('/download')

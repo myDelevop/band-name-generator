@@ -83,7 +83,6 @@ def login():
 
         if user is None:
             flash('The email does not exists. Please try again!', 'error')
-
         # Check stored password hash against entered password hashed.
         elif check_password_hash(user.password, password):
             login_user(user)

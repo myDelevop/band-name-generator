@@ -37,7 +37,11 @@ def register():
     if request.method == "POST":
         name = request.form.get("name")
         email = request.form.get("email")
-        password = request.form.get("password")
+
+        password = (generate_password_hash
+                    (request.form.get("password"),
+                     'pbkdf2:sha256',
+                     salt_length=8))
 
         new_user = User(name=name, email=email, password=password)
         db.session.add(new_user)

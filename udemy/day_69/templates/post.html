@@ -36,25 +36,24 @@
         {% endif %}
 
         <!-- Comments Area -->
-        <!-- TODO: Add a CKEditor for commenting below -->
         <div class="comment">
           {{ ckeditor.load() }} {{ ckeditor.config(name='body') }} {{
             render_form(form, novalidate=True, button_map={"submit": "primary"}) }}
-
-          <!-- TODO: Show all the comments on a post -->
-          <ul class="commentList">
-              {% for comment in post.comments: %}
-                <li>
-                  <div class="commenterImage">
-                    <img src="{{ comment.comment_author.email | gravatar }}" />
-                  </div>
-                  <div class="commentText">
-                    {{comment.text|safe}}
-                    <span class="sub-text"> {{ comment.comment_author.name }} </span>
-                  </div>
-                </li>
-            {% endfor %}
-          </ul>
+          <div style="margin-top: 100px !important;">
+            <ul class="commentList">
+                {% for comment in post.comments: %}
+                  <li>
+                    <div class="commenterImage">
+                      <img src="{{ comment.comment_author.email | gravatar }}" />
+                    </div>
+                    <div class="commentText">
+                      {{comment.text|safe}}
+                      <span class="sub-text"> {{ comment.comment_author.name }} </span>
+                    </div>
+                  </li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
       </div>
     </div>

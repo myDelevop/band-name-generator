@@ -3,7 +3,7 @@ from flask import Flask, abort, render_template, redirect, url_for, flash, reque
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
 from flask_gravatar import Gravatar
-from flask_login import UserMixin, login_user, LoginManager, current_user, logout_user
+from flask_login import UserMixin, login_user, LoginManager, current_user, logout_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
 
@@ -11,8 +11,7 @@ from sqlalchemy import ForeignKey
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 # Import your forms from the forms.py
-from forms import CreatePostForm, RegisterForm, LoginForm
-
+from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -33,6 +32,12 @@ def load_user(user_id):
     return db.get_or_404(User, user_id)
 
 
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    flash("You need to login or register first", "error")
+    return redirect('/login')
+
+
 def admin_only(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -51,6 +56,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(250), nullable=False)
 
     posts = relationship("BlogPost", back_populates="author")
+    comments = relationship("Comment", back_populates="comment_author")
 
 
 class BlogPost(db.Model):
@@ -63,6 +69,17 @@ class BlogPost(db.Model):
     date = db.Column(db.String(250), nullable=False)
     body = db.Column(db.Text, nullable=False)
     img_url = db.Column(db.String(250), nullable=False)
+    comments = relationship("Comment", back_populates="parent_post")
+
+
+class Comment(db.Model):
+    __tablename__ = "comments"
+    id = db.Column(db.Integer, primary_key=True)
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    comment_author = relationship("User", back_populates="comments")
+    post_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
+    parent_post = relationship("BlogPost", back_populates="comments")
+    text = db.Column(db.Text, nullable=False)
 
 
 
@@ -152,11 +169,23 @@ def get_all_posts():
     return render_template("index.html", all_posts=posts)
 
 
-# TODO: Allow logged-in users to comment on posts
-@app.route("/post/<int:post_id>")
+@app.route("/post/<int:post_id>", methods=["GET", "POST"])
+@login_required
 def show_post(post_id):
     requested_post = db.get_or_404(BlogPost, post_id)
-    return render_template("post.html", post=requested_post)
+
+    comment_form = CommentForm()
+    if comment_form .validate_on_submit():
+
+        new_comment = Comment(
+            text=comment_form.body.data,
+            comment_author=current_user,
+            parent_post=requested_post
+        )
+        db.session.add(new_comment)
+        db.session.commit()
+    return render_template("post.html", post=requested_post, form=comment_form)
+
 
 
 @app.route("/edit-post/<int:post_id>", methods=["GET", "POST"])

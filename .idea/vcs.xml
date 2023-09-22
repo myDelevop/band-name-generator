@@ -2,5 +2,11 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/udemy/day_70/1_Story" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/udemy/day_70/2_Project" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/udemy/day_70/3_Flask" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/udemy/day_70/4_Cloning/4_1_wordle/Wordle-Game" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/udemy/day_70/4_Cloning/4_2_MunGell/awesome-for-beginners" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/udemy/day_71" vcs="Git" />
   </component>
 </project>

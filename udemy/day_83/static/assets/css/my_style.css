@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden; /* Hide vertical scrollbar */
+}
+
+.masthead {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.site-heading h1 {
+    font-size: 48px !important;
+    padding-top: 10px !important;
+}
+
+.navbar-brand img {
+    max-width: 150px; /* Adjust the max-width to your desired size */
+    height: auto; /* Maintain aspect ratio */
+}
